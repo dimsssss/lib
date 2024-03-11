@@ -13,7 +13,21 @@ const once = (fn) => {
     }
 }
 
+const curry = (fn) => {
+    let args = []
+    return function rec(...arg) {
+        args = [...args, ...arg]
+
+        if (args.length < fn.length) {    
+            return rec
+        }
+
+        return fn.call(null, ...args)
+    }
+}
+
 module.exports = {
     unary,
-    once
+    once,
+    curry
 }

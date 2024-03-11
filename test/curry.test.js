@@ -1,5 +1,5 @@
 const assert = require('assert');
-const curry = require('../src/curry');
+const { curry } = require('../src/function');
 
 describe('curry', function () {
   it('param length correct', function () {
