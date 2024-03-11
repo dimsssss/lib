@@ -43,10 +43,28 @@ const filter = (arr, fn) => {
     return result
 }
 
+const reduce = (arr, fn, init) => {
+    for (const value of arr) {
+        init = fn(init, value)
+    }
+    return [init]
+}
+
+const zip = (leftArr, rightArr, fn) => {
+    const result = []
+
+    for (let i = 0; i < Math.min(leftArr.length, rightArr.length); i++) {
+        result.push(fn(leftArr[i], rightArr[i]))
+    }
+
+    return result
+}
+
 module.exports = {
     forEach,
     every,
     some,
     map,
-    filter
+    filter,
+    reduce, zip
 }
