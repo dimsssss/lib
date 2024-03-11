@@ -28,19 +28,17 @@ const curry = (fn) => {
 
 const partial = (fn, ...arg) => {
     let args = arg
+    let undefinedIndexs = []
+
+    for (let i = 0; i < arg.length; i++) {
+        if (arg[i] === undefined) {
+            undefinedIndexs.push(i)
+        }
+    }
 
     return function(...otherArgs) {
-        let argIndex = 0
-        
-        for (let i = 0; i < args.length && i < otherArgs.length; i++) {
-            if (args[i] === undefined) {
-                args[i] = otherArgs[argIndex]
-                argIndex++
-            }
-        }
-
-        if (argIndex === 0) {
-            args = otherArgs
+        for (let i = 0; i < Math.min(undefinedIndexs.length, otherArgs.length); i++) {
+            args[undefinedIndexs[i]] = otherArgs[i]
         }
 
         return fn.apply(null, args)
