@@ -22,8 +22,31 @@ const some = (arr, fn) => {
     return result
 }
 
+const map = (arr, fn) => {
+    const result = []
+
+    for (const value of arr) {
+        result.push(fn(value))
+    }
+    return result
+}
+
+const filter = (arr, fn) => {
+    const result = []
+
+    for (const value of arr) {
+        if (fn(value)) {
+            result.push(value)
+        }
+
+    }
+    return result
+}
+
 module.exports = {
     forEach,
     every,
-    some
+    some,
+    map,
+    filter
 }
