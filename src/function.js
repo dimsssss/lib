@@ -26,8 +26,30 @@ const curry = (fn) => {
     }
 }
 
+const partial = (fn, ...arg) => {
+    let args = arg
+
+    return function(...otherArgs) {
+        let argIndex = 0
+        
+        for (let i = 0; i < args.length && i < otherArgs.length; i++) {
+            if (args[i] === undefined) {
+                args[i] = otherArgs[argIndex]
+                argIndex++
+            }
+        }
+
+        if (argIndex === 0) {
+            args = otherArgs
+        }
+
+        return fn.apply(null, args)
+    }
+}
+
 module.exports = {
     unary,
     once,
-    curry
+    curry,
+    partial
 }
