@@ -1,3 +1,5 @@
+import _reduce from "./internal/_reduce"
+
 const unary = (fn) => {
     if (fn.length === 1) {
         return fn
@@ -45,9 +47,23 @@ const partial = (fn, ...arg) => {
     }
 }
 
+const compose = (...fns) => {
+    return (arg) => {
+        return _reduce(fns.reverse(), (acc, fn) => fn(acc), arg)
+    }
+}
+
+const pipe = (...fns) => {
+    return (arg) => {
+        return _reduce(fns, (acc, fn) => fn(acc), arg)
+    }
+}
+
 module.exports = {
     unary,
     once,
     curry,
-    partial
+    partial,
+    compose,
+    pipe
 }
