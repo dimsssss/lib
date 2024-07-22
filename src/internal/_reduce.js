@@ -1,14 +1,23 @@
-export default function _reduce(arr, fn, init) {
-    let index = 0
-
+/**
+ *
+ * @param {cb} fn 
+ * @param {Iterable} iter 
+ * @param {*} init 
+ * @returns 
+ */
+const _reduce = (fn, iter, init) => {
     if (!init) {
-        init = arr[0]
-        index = 1
+        iter = iter[Symbol.iterator]()
+        init = iter.next().value
     }
 
-    for (; index < arr.length; index++) {
-        init = fn(init, arr[index])
+    for (const element of iter) {
+        init = fn(element, init)
     }
 
     return init
+}
+
+module.exports = {
+    _reduce
 }
