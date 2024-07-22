@@ -12,7 +12,7 @@ const curry = function(fn) {
         if (arg.length < fn.length) {
             return rec.bind(this, ...arg)
         }
-        return fn.apply(this, arg)
+        return fn.apply(this, arg.slice(0, fn.length))
     }
 }
 
